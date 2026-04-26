@@ -1,0 +1,1 @@
+export * from "./propertie-routes";

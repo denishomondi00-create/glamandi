@@ -1,0 +1,56 @@
+services:
+  mongo1:
+    image: mongo:7
+    container_name: glamandi-mongo1
+    command: ["mongod", "--config", "/etc/mongo/mongod.conf", "--replSet", "rs0", "--bind_ip_all"]
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo1_data:/data/db
+      - ./mongo/mongod.conf:/etc/mongo/mongod.conf:ro
+
+  mongo2:
+    image: mongo:7
+    container_name: glamandi-mongo2
+    command: ["mongod", "--config", "/etc/mongo/mongod.conf", "--replSet", "rs0", "--bind_ip_all"]
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo2_data:/data/db
+      - ./mongo/mongod.conf:/etc/mongo/mongod.conf:ro
+
+  mongo3:
+    image: mongo:7
+    container_name: glamandi-mongo3
+    command: ["mongod", "--config", "/etc/mongo/mongod.conf", "--replSet", "rs0", "--bind_ip_all"]
+    ports:
+      - "27019:27017"
+    volumes:
+      - mongo3_data:/data/db
+      - ./mongo/mongod.conf:/etc/mongo/mongod.conf:ro
+
+  mongo-init:
+    image: mongo:7
+    depends_on:
+      - mongo1
+      - mongo2
+      - mongo3
+    volumes:
+      - ./mongo/rs-init.js:/rs-init.js:ro
+    entrypoint: ["bash", "-lc", "sleep 8 && mongosh --host mongo1:27017 /rs-init.js"]
+
+  redis:
+    image: redis:7-alpine
+    container_name: glamandi-redis
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
+      - redis_data:/data
+
+volumes:
+  mongo1_data:
+  mongo2_data:
+  mongo3_data:
+  redis_data:

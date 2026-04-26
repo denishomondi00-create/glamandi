@@ -1,0 +1,38 @@
+# dependencies
+node_modules
+.pnpm-store
+
+# build outputs
+.next
+dist
+build
+coverage
+.turbo
+
+# environment files
+.env
+.env.*
+!.env.example
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# operating system
+.DS_Store
+Thumbs.db
+
+# local data and backups
+infra/backups/*.archive
+infra/backups/*.gz
+infra/backups/*.dump
+infra/ssl/*.pem
+infra/ssl/*.key
+infra/ssl/*.crt
+
+# editor
+.vscode/settings.json
+.idea

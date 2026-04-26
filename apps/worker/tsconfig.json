@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "module": "commonjs",
+    "types": ["node"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@glamandi/types/*": ["../../packages/types/src/*"],
+      "@glamandi/contracts/*": ["../../packages/contracts/src/*"],
+      "@glamandi/contracts": ["../../packages/contracts/src/index.ts"]
+    }
+  },
+  "include": ["src/**/*.ts"]
+}

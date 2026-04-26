@@ -1,0 +1,22 @@
+{
+  "name": "Glamandi Homes Control Center",
+  "short_name": "Glamandi",
+  "description": "Property management operating system with tenant, landlord, staff, and offline operations portals.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#17DEFE",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/icons/icon-maskable.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

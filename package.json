@@ -1,0 +1,39 @@
+{
+  "name": "glamandi",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Glamandi Property Management Operating System: website, admin control center, tenant and landlord portals, offline PWA, API, workers, shared contracts, infrastructure, and documentation.",
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=20.11.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "dev": "turbo run dev --parallel",
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "format": "prettier --write .",
+    "api:dev": "pnpm --filter @glamandi/api dev",
+    "web:dev": "pnpm --filter @glamandi/web dev",
+    "worker:dev": "pnpm --filter @glamandi/worker dev",
+    "infra:dev": "docker compose -f infra/docker/docker-compose.dev.yml up -d",
+    "infra:down": "docker compose -f infra/docker/docker-compose.dev.yml down",
+    "seed:dev": "tsx infra/scripts/seed-dev.ts",
+    "seed:demo": "tsx infra/scripts/seed-demo.ts",
+    "create-admin": "tsx infra/scripts/create-admin.ts"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@types/node": "^22.19.17",
+    "eslint": "^9.39.4",
+    "prettier": "latest",
+    "tsx": "latest",
+    "turbo": "latest",
+    "typescript": "^5.9.3"
+  }
+}

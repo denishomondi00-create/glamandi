@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --glamandi-cyan: #17defe;
+  --glamandi-sky: #3ac4fa;
+  --glamandi-aqua: #32d2f7;
+  --glamandi-ice: #c5f0f8;
+  --glamandi-teal: #145f6b;
+  --glamandi-ink: #181918;
+  --glamandi-paper: #ffffff;
+  --glamandi-mist: #f0fbff;
+  --radius: 1.4rem;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--glamandi-ink);
+  background:
+    radial-gradient(circle at top left, rgba(23, 222, 254, 0.18), transparent 34rem),
+    radial-gradient(circle at bottom right, rgba(58, 196, 250, 0.16), transparent 36rem),
+    linear-gradient(180deg, #ffffff 0%, #f0fbff 100%);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select { font: inherit; }
+
+.glamandi-gradient-text {
+  background: linear-gradient(90deg, var(--glamandi-teal), var(--glamandi-cyan), var(--glamandi-sky));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.glamandi-card {
+  border: 1px solid rgba(197, 240, 248, 0.9);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 24px 60px rgba(20, 95, 107, 0.08);
+  backdrop-filter: blur(14px);
+}
+
+.glamandi-focus {
+  outline: 3px solid rgba(23, 222, 254, 0.35);
+  outline-offset: 2px;
+}
+
+::selection { background: rgba(23, 222, 254, 0.28); color: #073b46; }

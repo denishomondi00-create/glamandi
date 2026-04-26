@@ -1,0 +1,15 @@
+name: Backup Check
+
+on:
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  verify-backup-script:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash -n infra/scripts/backup-mongo.sh
+      - run: bash -n infra/scripts/restore-mongo.sh
+      - run: bash -n infra/scripts/verify-backup.sh

@@ -1,0 +1,13 @@
+import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+import { Receipt, ReceiptSchema } from '../../database/schemas/receipt.schema';
+import { ReceiptsController } from './receipts.controller';
+import { ReceiptsService } from './receipts.service';
+
+@Module({
+  imports: [MongooseModule.forFeature([{ name: Receipt.name, schema: ReceiptSchema }])],
+  controllers: [ReceiptsController],
+  providers: [ReceiptsService],
+  exports: [ReceiptsService],
+})
+export class ReceiptsModule {}

@@ -1,0 +1,30 @@
+{
+  "name": "@glamandi/worker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "BullMQ workers and schedulers for Glamandi PMOS.",
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "start": "node dist/main.js",
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint \"src/**/*.ts\"",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@glamandi/contracts": "workspace:*",
+    "@glamandi/types": "workspace:*",
+    "@nestjs/common": "latest",
+    "@nestjs/config": "latest",
+    "@nestjs/core": "latest",
+    "bullmq": "latest",
+    "ioredis": "latest",
+    "reflect-metadata": "latest",
+    "rxjs": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "eslint": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  }
+}

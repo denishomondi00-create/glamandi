@@ -1,0 +1,44 @@
+openapi: 3.0.3
+info:
+  title: Glamandi PMOS API
+  version: 1.0.0
+  description: REST API for Glamandi Homes property management operating system.
+servers:
+  - url: http://localhost:4000/api/v1
+paths:
+  /health:
+    get:
+      summary: Health check
+      responses:
+        '200':
+          description: API is healthy
+  /auth/login:
+    post:
+      summary: Login
+      responses:
+        '200':
+          description: Login successful
+  /payments/manual/mpesa:
+    post:
+      summary: Record manual M-Pesa payment draft or online manual posting
+      responses:
+        '201':
+          description: Payment accepted for posting
+  /payments/initialize/paystack:
+    post:
+      summary: Initialize Paystack hosted checkout
+      responses:
+        '201':
+          description: Payment intent created
+  /webhooks/paystack:
+    post:
+      summary: Paystack webhook receiver
+      responses:
+        '200':
+          description: Webhook accepted
+  /sync/push:
+    post:
+      summary: Push offline mutation batch
+      responses:
+        '200':
+          description: Sync result with accepted, rejected, and conflicts

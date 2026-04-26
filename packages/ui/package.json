@@ -1,0 +1,23 @@
+{
+  "name": "@glamandi/ui",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lint": "eslint \"src/**/*.ts\""
+  },
+  "dependencies": {
+    "@glamandi/config": "workspace:*",
+    "clsx": "latest",
+    "react": "latest",
+    "tailwind-merge": "latest"
+  },
+  "devDependencies": {
+    "@types/react": "latest",
+    "typescript": "latest"
+  }
+}
