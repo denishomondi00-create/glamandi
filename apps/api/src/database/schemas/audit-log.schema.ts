@@ -9,16 +9,16 @@ export class AuditLog {
   actorId?: Types.ObjectId;
 
   @Prop({})
-  actorRole?: String;
+  actorRole?: string;
 
   @Prop({ required: true })
-  action!: String;
+  action!: string;
 
   @Prop({ required: true })
-  entityType!: String;
+  entityType!: string;
 
   @Prop({})
-  entityId?: String;
+  entityId?: string;
 
   @Prop({ type: Object })
   before?: Record<string, unknown>;
@@ -27,10 +27,10 @@ export class AuditLog {
   after?: Record<string, unknown>;
 
   @Prop({})
-  ipAddress?: String;
+  ipAddress?: string;
 
   @Prop({})
-  requestId?: String;
+  requestId?: string;
 
   @Prop()
   deleted_at?: Date;

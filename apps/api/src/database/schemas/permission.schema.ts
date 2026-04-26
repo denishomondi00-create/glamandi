@@ -1,18 +1,18 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Types } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 
 export type PermissionDocument = HydratedDocument<Permission>;
 
 @Schema({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 export class Permission {
   @Prop({ required: true, unique: true })
-  key!: String;
+  key!: string;
 
   @Prop({ required: true })
-  group!: String;
+  group!: string;
 
   @Prop({})
-  description?: String;
+  description?: string;
 
   @Prop()
   deleted_at?: Date;

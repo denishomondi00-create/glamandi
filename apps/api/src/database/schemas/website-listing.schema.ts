@@ -12,31 +12,31 @@ export class WebsiteListing {
   unitId?: Types.ObjectId;
 
   @Prop({ required: true, unique: true })
-  slug!: String;
+  slug!: string;
 
   @Prop({ required: true })
-  title!: String;
+  title!: string;
 
   @Prop({})
-  summary?: String;
+  summary?: string;
 
   @Prop({})
-  description?: String;
+  description?: string;
 
   @Prop({ default: 0 })
-  price?: Number;
+  price?: number;
 
   @Prop({})
-  locationLabel?: String;
+  locationLabel?: string;
 
   @Prop({ default: false })
-  published?: Boolean;
+  published?: boolean;
 
   @Prop({ default: false })
-  featured?: Boolean;
+  featured?: boolean;
 
   @Prop({ type: [String], default: [] })
-  images?: [String];
+  images?: [string];
 
   @Prop({ type: Object, default: {} })
   seo?: Record<string, unknown>;

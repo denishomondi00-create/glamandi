@@ -1,108 +1,35 @@
 import type { Metadata } from "next";
-        import { AdminResourcePage } from "@/components/glamandi/admin-resource-page";
-
-        export const metadata: Metadata = { title: "Settings | Glamandi Control Center" };
-
-        const page = {
-  "eyebrow": "Admin / Settings",
-  "title": "Settings",
-  "description": "Manage business rules, penalty rules, commission, deposits, payments, offline behavior, notifications, and website rules.",
-  "apiRoute": "/api/v1/settings",
-  "primaryAction": {
-    "href": "/admin/settings",
-    "label": "Save Draft"
-  },
-  "secondaryAction": {
-    "href": "/admin",
-    "label": "Dashboard"
-  },
-  "stats": [
-    {
-      "label": "Rules",
-      "value": "Editable",
-      "helper": "Never hardcode business rules"
-    },
-    {
-      "label": "Permissions",
-      "value": "Admin",
-      "helper": "Restricted changes"
-    },
-    {
-      "label": "Audit",
-      "value": "On",
-      "helper": "Track rule changes"
-    }
-  ],
-  "panels": [
-    {
-      "title": "Settings workflow",
-      "description": "Use this page to manage settings while keeping the Control Center tied to the API and audit trail.",
-      "items": [
-        "Server-backed data",
-        "Role-based access",
-        "Clean activity history"
-      ]
-    },
-    {
-      "title": "Source of truth",
-      "description": "Canonical business data belongs in MongoDB. Local cache is for field continuity, not creative accounting.",
-      "items": [
-        "MongoDB canonical",
-        "IndexedDB temporary",
-        "Audit logs for sensitive edits"
-      ]
-    }
-  ],
-  "table": {
-    "title": "Settings list",
-    "description": "Connect this table to the corresponding API endpoint with pagination and search.",
-    "columns": [
-      "Name",
-      "Property/Owner",
-      "Status",
-      "Updated"
-    ],
-    "rows": [
-      [
-        "Sample item",
-        "Glamandi Homes",
-        "Active",
-        "Today"
-      ],
-      [
-        "Review needed",
-        "Mtwapa",
-        "Pending",
-        "Yesterday"
-      ],
-      [
-        "Archived record",
-        "System",
-        "Closed",
-        "This month"
-      ]
-    ]
-  },
-  "formTitle": "Settings form",
-  "formFields": [
-    {
-      "label": "Name / Reference",
-      "placeholder": "Enter settings reference"
-    },
-    {
-      "label": "Status",
-      "type": "select",
-      "placeholder": "Active / Pending / Review"
-    },
-    {
-      "label": "Notes",
-      "type": "textarea",
-      "placeholder": "Add operational notes"
-    }
-  ],
-  "dangerNote": "Restricted action. Use role permissions and audit logs before changing rules, payouts, reversals, or conflict resolutions."
-};
-
-        export default function Page() {
-          return <AdminResourcePage {...page} />;
-        }
+import Link from "next/link";
+import { Badge } from "@/components/glamandi/page-kit";
+export const metadata: Metadata = { title: "Settings | Glamandi Control Center" };
+const sections = [
+  { href: "/admin/settings/business-rules", label: "Business Rules", description: "Core operational rules for rent, billing day, and notices." },
+  { href: "/admin/settings/commission-rules", label: "Commission Rules", description: "Commission rates by property and management type." },
+  { href: "/admin/settings/deposit-rules", label: "Deposit Rules", description: "Deposit calculation policies and refund conditions." },
+  { href: "/admin/settings/penalty-rules", label: "Penalty Rules", description: "Late payment penalty bands, grace periods, and caps." },
+  { href: "/admin/settings/payment-methods", label: "Payment Methods", description: "Enabled payment channels and gateway credentials." },
+  { href: "/admin/settings/notification-rules", label: "Notification Rules", description: "SMS, email, and in-app notification triggers." },
+  { href: "/admin/settings/offline-rules", label: "Offline Rules", description: "IndexedDB sync policies, conflict resolution strategy." },
+  { href: "/admin/settings/website-rules", label: "Website Rules", description: "Public listing rules, auto-publish, and inquiry routing." },
+];
+export default function Page() {
+  return (
+    <div className="mx-auto max-w-7xl space-y-6">
+      <section className="relative overflow-hidden rounded-[2rem] border border-[#C5F0F8]/80 bg-white p-6 shadow-xl shadow-[#145F6B]/5 lg:p-8">
+        <div className="absolute right-0 top-0 h-56 w-56 rounded-full bg-[#17DEFE]/20 blur-3xl" />
+        <div className="relative"><Badge>Admin / Settings</Badge>
+          <h1 className="mt-4 text-4xl font-black tracking-tight text-[#145F6B]">Settings</h1>
+          <p className="mt-3 text-base leading-7 text-slate-600">System-wide configuration for business rules, payment channels, notifications, and offline sync behavior.</p>
+        </div>
+      </section>
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {sections.map(({ href, label, description }) => (
+          <Link key={href} href={href} className="rounded-[1.4rem] border border-[#C5F0F8] bg-white p-5 shadow-sm hover:border-[#17DEFE] hover:shadow-md transition">
+            <p className="font-black text-[#145F6B]">{label}</p>
+            <p className="mt-1 text-sm text-slate-500">{description}</p>
+          </Link>
+        ))}
+      </section>
+    </div>
+  );
+}

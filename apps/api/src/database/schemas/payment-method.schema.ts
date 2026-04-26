@@ -1,30 +1,30 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Types } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 
 export type PaymentMethodDocument = HydratedDocument<PaymentMethod>;
 
 @Schema({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 export class PaymentMethod {
   @Prop({ required: true, unique: true })
-  code!: String;
+  code!: string;
 
   @Prop({ required: true })
-  name!: String;
+  name!: string;
 
   @Prop({ default: 'active' })
-  status?: String;
+  status?: string;
 
   @Prop({ default: false })
-  requiresProof?: Boolean;
+  requiresProof?: boolean;
 
   @Prop({ default: false })
-  supportsWebhook?: Boolean;
+  supportsWebhook?: boolean;
 
   @Prop({ default: false })
-  supportsAutoVerification?: Boolean;
+  supportsAutoVerification?: boolean;
 
   @Prop({ default: false })
-  supportsOfflineDraft?: Boolean;
+  supportsOfflineDraft?: boolean;
 
   @Prop({ type: Object, default: {} })
   config?: Record<string, unknown>;

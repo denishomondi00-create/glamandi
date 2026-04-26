@@ -48,7 +48,7 @@ export class PaymentsService {
   async recordManualMpesa(dto: Record<string, unknown>) {
     const normalized = { ...dto, reference: dto.reference ? normalizeReference(String(dto.reference)) : makeId('MPESA') };
     const payment = await this.posting.postManual(normalized, 'mpesa_manual');
-    await this.allocations.allocate(payment.toObject());
+    await this.allocations.allocate(payment.toObject() as unknown as Record<string, unknown>);
     await this.receiptJob.enqueue({ paymentId: String(payment._id) });
     return payment;
   }

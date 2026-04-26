@@ -15,25 +15,25 @@ export class LandlordStatement {
   periodEnd!: Date;
 
   @Prop({ default: 0 })
-  grossCollected?: Number;
+  grossCollected?: number;
 
   @Prop({ default: 0 })
-  commission?: Number;
+  commission?: number;
 
   @Prop({ default: 0 })
-  repairDeductions?: Number;
+  repairDeductions?: number;
 
   @Prop({ default: 0 })
-  withdrawals?: Number;
+  withdrawals?: number;
 
   @Prop({ default: 0 })
-  netPayout?: Number;
+  netPayout?: number;
 
   @Prop({ default: 'draft' })
-  status?: String;
+  status?: string;
 
   @Prop({})
-  pdfUrl?: String;
+  pdfUrl?: string;
 
   @Prop()
   deleted_at?: Date;

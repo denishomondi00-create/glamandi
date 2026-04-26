@@ -6,34 +6,34 @@ export type InquiryDocument = HydratedDocument<Inquiry>;
 @Schema({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 export class Inquiry {
   @Prop({ default: 'website' })
-  source?: String;
+  source?: string;
 
   @Prop({ required: true })
-  fullName!: String;
+  fullName!: string;
 
   @Prop({ required: true })
-  phone!: String;
+  phone!: string;
 
   @Prop({})
-  email?: String;
+  email?: string;
 
   @Prop({ type: Types.ObjectId, ref: 'Unit' })
   interestedUnitId?: Types.ObjectId;
 
   @Prop({ default: 'new' })
-  status?: String;
+  status?: string;
 
   @Prop({ type: Types.ObjectId, ref: 'User' })
   assignedTo?: Types.ObjectId;
 
   @Prop({})
-  message?: String;
+  message?: string;
 
   @Prop({})
   followUpAt?: Date;
 
   @Prop({})
-  duplicateKey?: String;
+  duplicateKey?: string;
 
   @Prop()
   deleted_at?: Date;

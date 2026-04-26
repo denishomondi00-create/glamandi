@@ -12,22 +12,22 @@ export class UtilityCharge {
   tenantId?: Types.ObjectId;
 
   @Prop({ required: true })
-  type!: String;
+  type!: string;
 
   @Prop({})
-  meterNumber?: String;
+  meterNumber?: string;
 
   @Prop({})
-  reading?: Number;
+  reading?: number;
 
   @Prop({ required: true, default: 0 })
-  amount!: Number;
+  amount!: number;
 
   @Prop({})
-  period?: String;
+  period?: string;
 
   @Prop({ default: 'open' })
-  status?: String;
+  status?: string;
 
   @Prop()
   deleted_at?: Date;

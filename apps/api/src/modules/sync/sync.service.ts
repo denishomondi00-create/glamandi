@@ -33,7 +33,7 @@ export class SyncService {
 
     for (const mutation of dto.mutations ?? []) {
       if (mutation.operation.includes('PAYMENT') && !mutation.payload) {
-        const conflict = await this.conflictModel.create({ batchId: batch._id, localId: mutation.localId, operation: mutation.operation, entityType: mutation.entityType, reason: 'Missing payment payload', clientPayload: mutation, status: 'open' });
+        const conflict = await this.conflictModel.create({ batchId: batch._id, localId: mutation.localId, operation: mutation.operation, entityType: mutation.entityType, reason: 'Missing payment payload', clientPayload: { ...mutation }, status: 'open' });
         conflicts.push(conflict);
       } else {
         accepted.push({ localId: mutation.localId, operation: mutation.operation, status: 'accepted' });
@@ -48,6 +48,13 @@ export class SyncService {
   batch(id: string) { return this.batchModel.findById(id).lean(); }
   conflicts() { return this.conflictModel.find({ status: 'open' }).sort({ created_at: -1 }).lean(); }
   resolveConflict(id: string, dto: Record<string, unknown>) { return this.conflictModel.findByIdAndUpdate(id, { $set: { ...dto, status: 'resolved', resolvedAt: new Date() } }, { new: true }).lean(); }
-  registerDevice(dto: Record<string, unknown>) { return this.offlineClientModel.findOneAndUpdate({ deviceId: dto.deviceId }, { $set: dto }, { upsert: true, new: true }).lean(); }
-  revokeDevice(dto: Record<string, unknown>) { return this.offlineClientModel.findOneAndUpdate({ deviceId: dto.deviceId }, { $set: { status: 'revoked' } }, { new: true }).lean(); }
+  registerDevice(dto: Record<string, unknown>) {
+    const deviceId = String(dto.deviceId ?? '');
+    return this.offlineClientModel.findOneAndUpdate({ deviceId }, { $set: { ...dto, deviceId } }, { upsert: true, new: true }).lean();
+  }
+
+  revokeDevice(dto: Record<string, unknown>) {
+    const deviceId = String(dto.deviceId ?? '');
+    return this.offlineClientModel.findOneAndUpdate({ deviceId }, { $set: { status: 'revoked' } }, { new: true }).lean();
+  }
 }

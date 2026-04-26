@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { redirect } from "next/navigation";
 import { PortalShell } from "@/components/layout/portal-shell";
 import { tenantNavItems } from "@/components/nav/tenant-nav";
 import { getCurrentSession } from "@/lib/auth/session";
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 
 export default async function TenantLayout({ children }: { children: ReactNode }) {
   const session = await getCurrentSession();
+  if (!session) redirect("/login");
 
   return (
     <PortalShell
@@ -18,7 +20,7 @@ export default async function TenantLayout({ children }: { children: ReactNode }
       title="Tenant Portal"
       eyebrow="Glamandi Homes"
       navItems={tenantNavItems}
-      userName={session?.user?.name ?? "Tenant"}
+      userName={session.user.name}
       userRole="Tenant"
       homeHref="/tenant"
     >

@@ -12,13 +12,13 @@ export class DepositLedger {
   tenantId?: Types.ObjectId;
 
   @Prop({ required: true, default: 0 })
-  amount!: Number;
+  amount!: number;
 
   @Prop({ required: true, default: 0 })
-  balance!: Number;
+  balance!: number;
 
   @Prop({ default: 'held' })
-  status?: String;
+  status?: string;
 
   @Prop({ type: [Object], default: [] })
   entries?: [Record<string, unknown>];

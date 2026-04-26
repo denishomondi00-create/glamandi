@@ -1,90 +1,21 @@
 import type { Metadata } from "next";
-        import { AdminResourcePage } from "@/components/glamandi/admin-resource-page";
-
-        export const metadata: Metadata = { title: "Tenant Receipts | Glamandi Control Center" };
-
-        const page = {
-  "eyebrow": "Admin / Tenants",
-  "title": "Tenant Receipts",
-  "description": "Download and email official tenant receipts after server-confirmed payment posting.",
-  "apiRoute": "/api/v1/tenants/:id/receipts",
-  "primaryAction": {
-    "href": "/admin/tenants/[id]/receipts/new",
-    "label": "Create New"
-  },
-  "secondaryAction": {
-    "href": "/admin",
-    "label": "Dashboard"
-  },
-  "stats": [
-    {
-      "label": "Tenants",
-      "value": "Ready",
-      "helper": "API-connected scaffold"
-    },
-    {
-      "label": "Status",
-      "value": "Active",
-      "helper": "Prepared for live data"
-    },
-    {
-      "label": "Audit",
-      "value": "On",
-      "helper": "Sensitive changes logged"
-    }
-  ],
-  "panels": [
-    {
-      "title": "Tenants workflow",
-      "description": "Use this page to manage tenant receipts while keeping the Control Center tied to the API and audit trail.",
-      "items": [
-        "Server-backed data",
-        "Role-based access",
-        "Clean activity history"
-      ]
-    },
-    {
-      "title": "Source of truth",
-      "description": "Canonical business data belongs in MongoDB. Local cache is for field continuity, not creative accounting.",
-      "items": [
-        "MongoDB canonical",
-        "IndexedDB temporary",
-        "Audit logs for sensitive edits"
-      ]
-    }
-  ],
-  "table": {
-    "title": "Tenant Receipts list",
-    "description": "Connect this table to the corresponding API endpoint with pagination and search.",
-    "columns": [
-      "Name",
-      "Property/Owner",
-      "Status",
-      "Updated"
-    ],
-    "rows": [
-      [
-        "Sample item",
-        "Glamandi Homes",
-        "Active",
-        "Today"
-      ],
-      [
-        "Review needed",
-        "Mtwapa",
-        "Pending",
-        "Yesterday"
-      ],
-      [
-        "Archived record",
-        "System",
-        "Closed",
-        "This month"
-      ]
-    ]
-  }
-};
-
-        export default function Page({ params }: { params: { id: string } }) {
-          return <AdminResourcePage {...page} recordId={params.id} />;
-        }
+import { AdminListPage } from "@/components/glamandi/admin-list-page";
+export const metadata: Metadata = { title: "Receipts | Tenant | Glamandi Control Center" };
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  return (
+    <AdminListPage
+      eyebrow="Admin / Tenants / Receipts"
+      title="Receipts"
+      description="Receipts for this tenant — fetched from the API filtered by tenant ID."
+      apiPath="/receipts?tenantId=${id}"
+      columns={[
+        { key: "type", header: "Type" },
+        { key: "amount", header: "Amount (KES)", format: (v) => Number(v).toLocaleString("en-KE") },
+        { key: "status", header: "Status" },
+        { key: "created_at", header: "Date" },
+      ]}
+      secondaryAction={{ href: `/admin/tenants/${id}`, label: "Back to Profile" }}
+    />
+  );
+}

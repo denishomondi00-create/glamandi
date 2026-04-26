@@ -1,27 +1,27 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Types } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 
 export type WebhookEventDocument = HydratedDocument<WebhookEvent>;
 
 @Schema({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 export class WebhookEvent {
   @Prop({ required: true })
-  provider!: String;
+  provider!: string;
 
   @Prop({})
-  eventId?: String;
+  eventId?: string;
 
   @Prop({})
-  reference?: String;
+  reference?: string;
 
   @Prop({})
-  signature?: String;
+  signature?: string;
 
   @Prop({ type: Object, default: {} })
   payload?: Record<string, unknown>;
 
   @Prop({ default: 'received' })
-  status?: String;
+  status?: string;
 
   @Prop({})
   processedAt?: Date;

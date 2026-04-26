@@ -1,16 +1,19 @@
 import { Section } from "@/components/layout/section";
 import { MetricGrid } from "@/components/layout/metric-grid";
-import { DataTable } from "@/components/tables/data-table";
 import type { AuthSummary } from "../schemas/auth.schema";
 
 export function AuthOverview({ data }: { data: AuthSummary }) {
+  const metrics = [
+    { label: "Name", value: data.name },
+    { label: "Email", value: data.email },
+    { label: "Role", value: data.role ?? "—" },
+    { label: "Status", value: data.status ?? "—" },
+  ];
+
   return (
     <div className="grid gap-6">
-      <Section title={data.title} description={data.description}>
-        <MetricGrid items={data.metrics} />
-      </Section>
-      <Section title="Records" description="Role-scoped list connected through the shared API client.">
-        <DataTable rows={data.records} columns={[{ key: "name", header: "Name" }, { key: "status", header: "Status" }, { key: "updated", header: "Updated" }]} />
+      <Section title="My Account" description="Your session details from the Glamandi API.">
+        <MetricGrid items={metrics} />
       </Section>
     </div>
   );

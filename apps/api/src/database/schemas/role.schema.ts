@@ -1,27 +1,27 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Types } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 
 export type RoleDocument = HydratedDocument<Role>;
 
 @Schema({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 export class Role {
   @Prop({ required: true })
-  name!: String;
+  name!: string;
 
   @Prop({ required: true, unique: true })
-  key!: String;
+  key!: string;
 
   @Prop({})
-  description?: String;
+  description?: string;
 
   @Prop({ type: [String], default: [] })
-  permissions?: [String];
+  permissions?: [string];
 
   @Prop({ default: false })
-  system?: Boolean;
+  system?: boolean;
 
   @Prop({ default: 'active' })
-  status?: String;
+  status?: string;
 
   @Prop()
   deleted_at?: Date;

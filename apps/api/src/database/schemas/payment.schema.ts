@@ -12,28 +12,28 @@ export class Payment {
   tenantId!: Types.ObjectId;
 
   @Prop({ required: true })
-  method!: String;
+  method!: string;
 
   @Prop({ required: true, default: 0 })
-  amount!: Number;
+  amount!: number;
 
   @Prop({ default: 'KES' })
-  currency?: String;
+  currency?: string;
 
   @Prop({ unique: true, sparse: true })
-  reference?: String;
+  reference?: string;
 
   @Prop({})
-  channel?: String;
+  channel?: string;
 
   @Prop({ default: 'pending' })
-  status?: String;
+  status?: string;
 
   @Prop({})
   paidAt?: Date;
 
   @Prop({ default: 'unallocated' })
-  allocationStatus?: String;
+  allocationStatus?: string;
 
   @Prop({ type: Types.ObjectId, ref: 'User' })
   postedBy?: Types.ObjectId;

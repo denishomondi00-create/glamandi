@@ -1,91 +1,19 @@
 import type { Metadata } from "next";
-        import { AdminResourcePage } from "@/components/glamandi/admin-resource-page";
-
-        export const metadata: Metadata = { title: "Unit Repairs | Glamandi Control Center" };
-
-        const page = {
-  "eyebrow": "Admin / Units",
-  "title": "Unit Repairs",
-  "description": "Track repair tickets, expenses, landlord deductions, and maintenance status for this unit.",
-  "apiRoute": "/api/v1/units/:id/repairs",
-  "primaryAction": {
-    "href": "/admin/units/[id]/repairs/new",
-    "label": "Create New"
-  },
-  "secondaryAction": {
-    "href": "/admin",
-    "label": "Dashboard"
-  },
-  "stats": [
-    {
-      "label": "Units",
-      "value": "Ready",
-      "helper": "API-connected scaffold"
-    },
-    {
-      "label": "Status",
-      "value": "Active",
-      "helper": "Prepared for live data"
-    },
-    {
-      "label": "Audit",
-      "value": "On",
-      "helper": "Sensitive changes logged"
-    }
-  ],
-  "panels": [
-    {
-      "title": "Units workflow",
-      "description": "Use this page to manage unit repairs while keeping the Control Center tied to the API and audit trail.",
-      "items": [
-        "Server-backed data",
-        "Role-based access",
-        "Clean activity history"
-      ]
-    },
-    {
-      "title": "Source of truth",
-      "description": "Canonical business data belongs in MongoDB. Local cache is for field continuity, not creative accounting.",
-      "items": [
-        "MongoDB canonical",
-        "IndexedDB temporary",
-        "Audit logs for sensitive edits"
-      ]
-    }
-  ],
-  "table": {
-    "title": "Unit Repairs list",
-    "description": "Connect this table to the corresponding API endpoint with pagination and search.",
-    "columns": [
-      "Name",
-      "Property/Owner",
-      "Status",
-      "Updated"
-    ],
-    "rows": [
-      [
-        "Sample item",
-        "Glamandi Homes",
-        "Active",
-        "Today"
-      ],
-      [
-        "Review needed",
-        "Mtwapa",
-        "Pending",
-        "Yesterday"
-      ],
-      [
-        "Archived record",
-        "System",
-        "Closed",
-        "This month"
-      ]
-    ]
-  },
-  "offlineNote": "This module can show cached records and may allow safe draft creation. Official finance posting, receipt numbers, payouts, and verified payments must wait for online server confirmation."
-};
-
-        export default function Page({ params }: { params: { id: string } }) {
-          return <AdminResourcePage {...page} recordId={params.id} />;
-        }
+import { AdminListPage } from "@/components/glamandi/admin-list-page";
+export const metadata: Metadata = { title: "Repairs | Unit | Glamandi Control Center" };
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  return (
+    <AdminListPage
+      eyebrow="Admin / Units / Repairs" title="Repairs"
+      description="Repairs for this unit."
+      apiPath="/repairs?unitId=${id}"
+      columns={[
+        { key: "status", header: "Status" },
+        { key: "amount", header: "Amount (KES)", format: (v) => Number(v).toLocaleString("en-KE") },
+        { key: "created_at", header: "Date" },
+      ]}
+      secondaryAction={{ href: `/admin/units/${id}`, label: "Back to Unit" }}
+    />
+  );
+}

@@ -1,90 +1,23 @@
 import type { Metadata } from "next";
-        import { AdminResourcePage } from "@/components/glamandi/admin-resource-page";
-
-        export const metadata: Metadata = { title: "Utilities | Glamandi Control Center" };
-
-        const page = {
-  "eyebrow": "Admin / Utilities",
-  "title": "Utilities",
-  "description": "Manage utility charges, drafts, voids, tenant billing, and payment matching.",
-  "apiRoute": "/api/v1/utilities",
-  "primaryAction": {
-    "href": "/admin/utilities/new",
-    "label": "Create New"
-  },
-  "secondaryAction": {
-    "href": "/admin",
-    "label": "Dashboard"
-  },
-  "stats": [
-    {
-      "label": "Utilities",
-      "value": "Ready",
-      "helper": "API-connected scaffold"
-    },
-    {
-      "label": "Status",
-      "value": "Active",
-      "helper": "Prepared for live data"
-    },
-    {
-      "label": "Audit",
-      "value": "On",
-      "helper": "Sensitive changes logged"
-    }
-  ],
-  "panels": [
-    {
-      "title": "Utilities workflow",
-      "description": "Use this page to manage utilities while keeping the Control Center tied to the API and audit trail.",
-      "items": [
-        "Server-backed data",
-        "Role-based access",
-        "Clean activity history"
-      ]
-    },
-    {
-      "title": "Source of truth",
-      "description": "Canonical business data belongs in MongoDB. Local cache is for field continuity, not creative accounting.",
-      "items": [
-        "MongoDB canonical",
-        "IndexedDB temporary",
-        "Audit logs for sensitive edits"
-      ]
-    }
-  ],
-  "table": {
-    "title": "Utilities list",
-    "description": "Connect this table to the corresponding API endpoint with pagination and search.",
-    "columns": [
-      "Name",
-      "Property/Owner",
-      "Status",
-      "Updated"
-    ],
-    "rows": [
-      [
-        "Sample item",
-        "Glamandi Homes",
-        "Active",
-        "Today"
-      ],
-      [
-        "Review needed",
-        "Mtwapa",
-        "Pending",
-        "Yesterday"
-      ],
-      [
-        "Archived record",
-        "System",
-        "Closed",
-        "This month"
-      ]
-    ]
-  }
-};
-
-        export default function Page() {
-          return <AdminResourcePage {...page} />;
-        }
+import { AdminListPage } from "@/components/glamandi/admin-list-page";
+export const metadata: Metadata = { title: "Utilities | Glamandi Control Center" };
+export default function Page() {
+  return (
+    <AdminListPage
+      eyebrow="Admin / Utilities" title="Utility Charges"
+      description="Water, electricity, and other utility charges — billing periods, amounts, and payment status."
+      apiPath="/utilities"
+      columns={[
+        { key: "type", header: "Utility" },
+        { key: "period", header: "Period" },
+        { key: "units", header: "Units" },
+        { key: "amount", header: "Amount (KES)", format: (v) => Number(v).toLocaleString("en-KE") },
+        { key: "status", header: "Status" },
+        { key: "created_at", header: "Date" },
+      ]}
+      rowHref={() => `/admin/utilities`}
+      primaryAction={{ href: "/admin/utilities/new", label: "New Utility Charge" }}
+      secondaryAction={{ href: "/admin", label: "Dashboard" }}
+    />
+  );
+}

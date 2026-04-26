@@ -1,18 +1,18 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Types } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 
 export type DepositRuleDocument = HydratedDocument<DepositRule>;
 
 @Schema({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 export class DepositRule {
   @Prop({ required: true })
-  name!: String;
+  name!: string;
 
   @Prop({ default: 30 })
-  noticeWindowDays?: Number;
+  noticeWindowDays?: number;
 
   @Prop({ default: 'active' })
-  status?: String;
+  status?: string;
 
   @Prop({ type: Object, default: {} })
   settings?: Record<string, unknown>;

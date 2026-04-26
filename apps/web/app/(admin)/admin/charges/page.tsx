@@ -1,90 +1,23 @@
 import type { Metadata } from "next";
-        import { AdminResourcePage } from "@/components/glamandi/admin-resource-page";
-
-        export const metadata: Metadata = { title: "Charges | Glamandi Control Center" };
-
-        const page = {
-  "eyebrow": "Admin / Charges",
-  "title": "Charges",
-  "description": "Manage rent, deposit, utility, penalty, move-in, and adjustment charges.",
-  "apiRoute": "/api/v1/charges",
-  "primaryAction": {
-    "href": "/admin/charges/new",
-    "label": "Create New"
-  },
-  "secondaryAction": {
-    "href": "/admin",
-    "label": "Dashboard"
-  },
-  "stats": [
-    {
-      "label": "Charges",
-      "value": "Ready",
-      "helper": "API-connected scaffold"
-    },
-    {
-      "label": "Status",
-      "value": "Active",
-      "helper": "Prepared for live data"
-    },
-    {
-      "label": "Audit",
-      "value": "On",
-      "helper": "Sensitive changes logged"
-    }
-  ],
-  "panels": [
-    {
-      "title": "Charges workflow",
-      "description": "Use this page to manage charges while keeping the Control Center tied to the API and audit trail.",
-      "items": [
-        "Server-backed data",
-        "Role-based access",
-        "Clean activity history"
-      ]
-    },
-    {
-      "title": "Source of truth",
-      "description": "Canonical business data belongs in MongoDB. Local cache is for field continuity, not creative accounting.",
-      "items": [
-        "MongoDB canonical",
-        "IndexedDB temporary",
-        "Audit logs for sensitive edits"
-      ]
-    }
-  ],
-  "table": {
-    "title": "Charges list",
-    "description": "Connect this table to the corresponding API endpoint with pagination and search.",
-    "columns": [
-      "Name",
-      "Property/Owner",
-      "Status",
-      "Updated"
-    ],
-    "rows": [
-      [
-        "Sample item",
-        "Glamandi Homes",
-        "Active",
-        "Today"
-      ],
-      [
-        "Review needed",
-        "Mtwapa",
-        "Pending",
-        "Yesterday"
-      ],
-      [
-        "Archived record",
-        "System",
-        "Closed",
-        "This month"
-      ]
-    ]
-  }
-};
-
-        export default function Page() {
-          return <AdminResourcePage {...page} />;
-        }
+import { AdminListPage } from "@/components/glamandi/admin-list-page";
+export const metadata: Metadata = { title: "Charges | Glamandi Control Center" };
+export default function Page() {
+  return (
+    <AdminListPage
+      eyebrow="Admin / Charges" title="Charges"
+      description="Rent, utilities, penalties, move-in fees, and other tenant charges with outstanding balances."
+      apiPath="/charges"
+      columns={[
+        { key: "type", header: "Type" },
+        { key: "period", header: "Period" },
+        { key: "amount", header: "Amount (KES)", format: (v) => Number(v).toLocaleString("en-KE") },
+        { key: "balance", header: "Balance (KES)", format: (v) => Number(v).toLocaleString("en-KE") },
+        { key: "status", header: "Status" },
+        { key: "dueDate", header: "Due Date" },
+      ]}
+      rowHref={() => `/admin/charges`}
+      primaryAction={{ href: "/admin/charges/new", label: "New Charge" }}
+      secondaryAction={{ href: "/admin", label: "Dashboard" }}
+    />
+  );
+}

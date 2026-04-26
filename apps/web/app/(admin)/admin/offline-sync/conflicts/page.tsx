@@ -1,101 +1,20 @@
 import type { Metadata } from "next";
-        import { AdminResourcePage } from "@/components/glamandi/admin-resource-page";
-
-        export const metadata: Metadata = { title: "Sync Conflicts | Glamandi Control Center" };
-
-        const page = {
-  "eyebrow": "Admin / Offline Sync",
-  "title": "Sync Conflicts",
-  "description": "Resolve financial duplicates, invalid tenancies, closed units, and rejected offline mutations.",
-  "apiRoute": "/api/v1/sync/conflicts",
-  "primaryAction": {
-    "href": "/admin/offline-sync/conflicts",
-    "label": "Review Conflicts"
-  },
-  "secondaryAction": {
-    "href": "/admin",
-    "label": "Dashboard"
-  },
-  "stats": [
-    {
-      "label": "Outbox",
-      "value": "Safe drafts",
-      "helper": "Pending mutations only"
-    },
-    {
-      "label": "Conflicts",
-      "value": "Manual",
-      "helper": "Finance conflicts need admin"
-    },
-    {
-      "label": "Source",
-      "value": "MongoDB",
-      "helper": "IndexedDB is temporary"
-    }
-  ],
-  "panels": [
-    {
-      "title": "Offline Sync workflow",
-      "description": "Use this page to manage sync conflicts while keeping the Control Center tied to the API and audit trail.",
-      "items": [
-        "Server-backed data",
-        "Role-based access",
-        "Clean activity history"
-      ]
-    },
-    {
-      "title": "Source of truth",
-      "description": "Canonical business data belongs in MongoDB. Local cache is for field continuity, not creative accounting.",
-      "items": [
-        "MongoDB canonical",
-        "IndexedDB temporary",
-        "Audit logs for sensitive edits"
-      ]
-    },
-    {
-      "title": "Conflict policy",
-      "description": "Financial conflicts are server-wins by default and require admin reconciliation before final posting.",
-      "items": [
-        "Duplicate reference block",
-        "Closed tenancy conflict",
-        "Manual resolution"
-      ]
-    }
-  ],
-  "table": {
-    "title": "Sync Conflicts queue",
-    "description": "Offline and sync records needing monitoring or resolution.",
-    "columns": [
-      "Local ID",
-      "Operation",
-      "Device",
-      "Status"
-    ],
-    "rows": [
-      [
-        "local-001",
-        "CREATE_MANUAL_MPESA_PAYMENT",
-        "Staff tablet",
-        "pending"
-      ],
-      [
-        "local-002",
-        "CREATE_REPAIR_TICKET",
-        "Office laptop",
-        "synced"
-      ],
-      [
-        "local-003",
-        "CREATE_INQUIRY",
-        "Reception device",
-        "conflict"
-      ]
-    ]
-  },
-  "offlineNote": "This module can show cached records and may allow safe draft creation. Official finance posting, receipt numbers, payouts, and verified payments must wait for online server confirmation.",
-  "dangerNote": "Restricted action. Use role permissions and audit logs before changing rules, payouts, reversals, or conflict resolutions."
-};
-
-        export default function Page() {
-          return <AdminResourcePage {...page} />;
-        }
+import { AdminListPage } from "@/components/glamandi/admin-list-page";
+export const metadata: Metadata = { title: "Sync Conflicts | Glamandi Control Center" };
+export default function Page() {
+  return (
+    <AdminListPage
+      eyebrow="Admin / Offline Sync / Conflicts" title="Sync Conflicts"
+      description="Open sync conflicts requiring admin resolution — server and client versions shown side-by-side."
+      apiPath="/sync/conflicts"
+      columns={[
+        { key: "collection", header: "Collection" },
+        { key: "recordId", header: "Record ID" },
+        { key: "status", header: "Status" },
+        { key: "created_at", header: "Detected" },
+      ]}
+      primaryAction={{ href: "/admin/offline-sync", label: "All Batches" }}
+      secondaryAction={{ href: "/admin", label: "Dashboard" }}
+    />
+  );
+}

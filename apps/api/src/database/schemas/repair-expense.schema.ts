@@ -15,16 +15,16 @@ export class RepairExpense {
   propertyId?: Types.ObjectId;
 
   @Prop({ required: true, default: 0 })
-  amount!: Number;
+  amount!: number;
 
   @Prop({ default: 'pending' })
-  status?: String;
+  status?: string;
 
   @Prop({ default: false })
-  deductionApproved?: Boolean;
+  deductionApproved?: boolean;
 
   @Prop({})
-  receiptUrl?: String;
+  receiptUrl?: string;
 
   @Prop()
   deleted_at?: Date;

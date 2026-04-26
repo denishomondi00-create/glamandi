@@ -1,90 +1,21 @@
 import type { Metadata } from "next";
-        import { AdminResourcePage } from "@/components/glamandi/admin-resource-page";
-
-        export const metadata: Metadata = { title: "Units | Glamandi Control Center" };
-
-        const page = {
-  "eyebrow": "Admin / Units",
-  "title": "Units",
-  "description": "Manage unit inventory, rent, occupancy, maintenance, lock status, visibility, and tenant assignment.",
-  "apiRoute": "/api/v1/units",
-  "primaryAction": {
-    "href": "/admin/units/new",
-    "label": "Create New"
-  },
-  "secondaryAction": {
-    "href": "/admin",
-    "label": "Dashboard"
-  },
-  "stats": [
-    {
-      "label": "Units",
-      "value": "Ready",
-      "helper": "API-connected scaffold"
-    },
-    {
-      "label": "Status",
-      "value": "Active",
-      "helper": "Prepared for live data"
-    },
-    {
-      "label": "Audit",
-      "value": "On",
-      "helper": "Sensitive changes logged"
-    }
-  ],
-  "panels": [
-    {
-      "title": "Units workflow",
-      "description": "Use this page to manage units while keeping the Control Center tied to the API and audit trail.",
-      "items": [
-        "Server-backed data",
-        "Role-based access",
-        "Clean activity history"
-      ]
-    },
-    {
-      "title": "Source of truth",
-      "description": "Canonical business data belongs in MongoDB. Local cache is for field continuity, not creative accounting.",
-      "items": [
-        "MongoDB canonical",
-        "IndexedDB temporary",
-        "Audit logs for sensitive edits"
-      ]
-    }
-  ],
-  "table": {
-    "title": "Units list",
-    "description": "Connect this table to the corresponding API endpoint with pagination and search.",
-    "columns": [
-      "Name",
-      "Property/Owner",
-      "Status",
-      "Updated"
-    ],
-    "rows": [
-      [
-        "Sample item",
-        "Glamandi Homes",
-        "Active",
-        "Today"
-      ],
-      [
-        "Review needed",
-        "Mtwapa",
-        "Pending",
-        "Yesterday"
-      ],
-      [
-        "Archived record",
-        "System",
-        "Closed",
-        "This month"
-      ]
-    ]
-  }
-};
-
-        export default function Page() {
-          return <AdminResourcePage {...page} />;
-        }
+import { AdminListPage } from "@/components/glamandi/admin-list-page";
+export const metadata: Metadata = { title: "Units | Glamandi Control Center" };
+export default function Page() {
+  return (
+    <AdminListPage
+      eyebrow="Admin / Units" title="Units"
+      description="View all units across properties — rent amounts, occupancy status, lock status, and tenant assignment."
+      apiPath="/units"
+      columns={[
+        { key: "unitLabel", header: "Label" }, { key: "unitNumber", header: "Number" },
+        { key: "type", header: "Type" }, { key: "bedrooms", header: "Beds" },
+        { key: "rentAmount", header: "Rent (KES)", format: (v) => Number(v).toLocaleString("en-KE") },
+        { key: "status", header: "Status" }, { key: "lockStatus", header: "Lock" },
+      ]}
+      rowHref={(row) => `/admin/units/${String(row._id)}`}
+      primaryAction={{ href: "/admin/units/new", label: "New Unit" }}
+      secondaryAction={{ href: "/admin/properties", label: "Properties" }}
+    />
+  );
+}

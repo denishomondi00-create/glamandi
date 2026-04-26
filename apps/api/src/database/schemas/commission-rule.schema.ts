@@ -1,18 +1,18 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Types } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 
 export type CommissionRuleDocument = HydratedDocument<CommissionRule>;
 
 @Schema({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 export class CommissionRule {
   @Prop({ required: true })
-  name!: String;
+  name!: string;
 
   @Prop({ default: 0.1 })
-  rate?: Number;
+  rate?: number;
 
   @Prop({ default: 'active' })
-  status?: String;
+  status?: string;
 
   @Prop({ default: Date.now })
   effectiveFrom?: Date;

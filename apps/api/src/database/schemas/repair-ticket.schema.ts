@@ -18,16 +18,16 @@ export class RepairTicket {
   landlordId?: Types.ObjectId;
 
   @Prop({ required: true })
-  title!: String;
+  title!: string;
 
   @Prop({})
-  description?: String;
+  description?: string;
 
   @Prop({ default: 'open' })
-  status?: String;
+  status?: string;
 
   @Prop({ default: 'normal' })
-  priority?: String;
+  priority?: string;
 
   @Prop({ type: Types.ObjectId, ref: 'User' })
   assignedTo?: Types.ObjectId;

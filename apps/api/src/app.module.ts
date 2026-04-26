@@ -1,5 +1,9 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
+import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
+import { RolesGuard } from './common/guards/roles.guard';
+import { PermissionsGuard } from './common/guards/permissions.guard';
 
 import appConfig from './config/app.config';
 import authConfig from './config/auth.config';
@@ -43,6 +47,11 @@ import { SettingsModule } from './modules/settings/settings.module';
 import { SyncModule } from './modules/sync/sync.module';
 
 @Module({
+  providers: [
+    { provide: APP_GUARD, useClass: JwtAuthGuard },
+    { provide: APP_GUARD, useClass: RolesGuard },
+    { provide: APP_GUARD, useClass: PermissionsGuard },
+  ],
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,

@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
+import type { JwtSignOptions } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from '../../database/schemas/user.schema';
@@ -11,10 +12,14 @@ import { AuthService } from './auth.service';
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     JwtModule.registerAsync({
       inject: [ConfigService],
-      useFactory: (config: ConfigService) => ({
-        secret: config.get<string>('auth.accessSecret'),
-        signOptions: { expiresIn: config.get<string>('auth.accessTtl') ?? '15m' },
-      }),
+      useFactory: (config: ConfigService) => {
+        const expiresIn = config.get<string>('auth.accessTtl') ?? '15m';
+
+        return {
+          secret: config.get<string>('auth.accessSecret'),
+          signOptions: { expiresIn: expiresIn as JwtSignOptions['expiresIn'] },
+        };
+      },
     }),
   ],
   controllers: [AuthController],

@@ -12,7 +12,7 @@ export class PaymentAllocation {
   chargeId!: Types.ObjectId;
 
   @Prop({ required: true, default: 0 })
-  amount!: Number;
+  amount!: number;
 
   @Prop({ default: Date.now })
   allocationDate?: Date;

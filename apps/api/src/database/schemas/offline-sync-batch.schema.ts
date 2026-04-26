@@ -1,24 +1,24 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Types } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 
 export type OfflineSyncBatchDocument = HydratedDocument<OfflineSyncBatch>;
 
 @Schema({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 export class OfflineSyncBatch {
   @Prop({ required: true })
-  deviceId!: String;
+  deviceId!: string;
 
   @Prop({ default: 'pending' })
-  status?: String;
+  status?: string;
 
   @Prop({ default: 0 })
-  acceptedCount?: Number;
+  acceptedCount?: number;
 
   @Prop({ default: 0 })
-  rejectedCount?: Number;
+  rejectedCount?: number;
 
   @Prop({ default: 0 })
-  conflictCount?: Number;
+  conflictCount?: number;
 
   @Prop({ default: Date.now })
   pushedAt?: Date;

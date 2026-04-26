@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LoginForm } from "@/components/auth/login-form";
 import { Badge, EmptyState, FormPreview, GradientButton, InfoPanel, SimpleTable, StatCard, Surface } from "./page-kit";
 
 const propertyRows = [
@@ -192,7 +193,8 @@ export function LoginPage() {
           </ul>
         </div>
         <div className="p-8">
-          <FormPreview title="Login" fields={[{ label: "Email address", type: "email", placeholder: "you@glamandi.co.ke" }, { label: "Password", type: "text", placeholder: "••••••••" }]} />
+          <h2 className="mb-6 text-2xl font-black text-[#145F6B]">Sign in to your portal</h2>
+          <LoginForm />
         </div>
       </div>
     </section>

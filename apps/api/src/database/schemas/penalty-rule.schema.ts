@@ -1,21 +1,21 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Types } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 
 export type PenaltyRuleDocument = HydratedDocument<PenaltyRule>;
 
 @Schema({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 export class PenaltyRule {
   @Prop({ required: true })
-  name!: String;
+  name!: string;
 
   @Prop({ default: 5 })
-  dueDay?: Number;
+  dueDay?: number;
 
   @Prop({ type: [Object], default: [] })
   bands?: [Record<string, unknown>];
 
   @Prop({ default: 'active' })
-  status?: String;
+  status?: string;
 
   @Prop()
   deleted_at?: Date;

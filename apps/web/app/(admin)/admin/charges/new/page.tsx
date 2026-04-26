@@ -1,107 +1,24 @@
 import type { Metadata } from "next";
-        import { AdminResourcePage } from "@/components/glamandi/admin-resource-page";
-
-        export const metadata: Metadata = { title: "New Charge | Glamandi Control Center" };
-
-        const page = {
-  "eyebrow": "Admin / Charges",
-  "title": "New Charge",
-  "description": "Create a charge and attach it to tenant, tenancy, unit, billing period, and charge type.",
-  "apiRoute": "/api/v1/charges",
-  "primaryAction": {
-    "href": "/admin/charges/new",
-    "label": "Save Draft"
-  },
-  "secondaryAction": {
-    "href": "/admin",
-    "label": "Dashboard"
-  },
-  "stats": [
-    {
-      "label": "Charges",
-      "value": "Ready",
-      "helper": "API-connected scaffold"
-    },
-    {
-      "label": "Status",
-      "value": "Active",
-      "helper": "Prepared for live data"
-    },
-    {
-      "label": "Audit",
-      "value": "On",
-      "helper": "Sensitive changes logged"
-    }
-  ],
-  "panels": [
-    {
-      "title": "Charges workflow",
-      "description": "Use this page to manage new charge while keeping the Control Center tied to the API and audit trail.",
-      "items": [
-        "Server-backed data",
-        "Role-based access",
-        "Clean activity history"
-      ]
-    },
-    {
-      "title": "Source of truth",
-      "description": "Canonical business data belongs in MongoDB. Local cache is for field continuity, not creative accounting.",
-      "items": [
-        "MongoDB canonical",
-        "IndexedDB temporary",
-        "Audit logs for sensitive edits"
-      ]
-    }
-  ],
-  "table": {
-    "title": "New Charge list",
-    "description": "Connect this table to the corresponding API endpoint with pagination and search.",
-    "columns": [
-      "Name",
-      "Property/Owner",
-      "Status",
-      "Updated"
-    ],
-    "rows": [
-      [
-        "Sample item",
-        "Glamandi Homes",
-        "Active",
-        "Today"
-      ],
-      [
-        "Review needed",
-        "Mtwapa",
-        "Pending",
-        "Yesterday"
-      ],
-      [
-        "Archived record",
-        "System",
-        "Closed",
-        "This month"
-      ]
-    ]
-  },
-  "formTitle": "New Charge form",
-  "formFields": [
-    {
-      "label": "Name / Reference",
-      "placeholder": "Enter new charge reference"
-    },
-    {
-      "label": "Status",
-      "type": "select",
-      "placeholder": "Active / Pending / Review"
-    },
-    {
-      "label": "Notes",
-      "type": "textarea",
-      "placeholder": "Add operational notes"
-    }
-  ]
-};
-
-        export default function Page() {
-          return <AdminResourcePage {...page} />;
-        }
+import { AdminFormPage } from "@/components/glamandi/admin-form-page";
+export const metadata: Metadata = { title: "New Charge | Glamandi Control Center" };
+export default function Page() {
+  return (
+    <AdminFormPage
+      eyebrow="Admin / Charges"
+      title="New Charge"
+      description="Manually raise a charge against a tenant — rent, utility, move-in fee, or other billing."
+      apiPath="/charges"
+      successRedirect="/admin/charges"
+      fields={[
+        { key: "tenantId", label: "Tenant ID", required: true, placeholder: "MongoDB ObjectId" },
+        { key: "tenancyId", label: "Tenancy ID", placeholder: "MongoDB ObjectId" },
+        { key: "type", label: "Charge Type", type: "select", required: true, options: ["rent", "utility", "penalty", "move_in", "deposit", "other"] },
+        { key: "period", label: "Period", placeholder: "e.g. 2025-04" },
+        { key: "amount", label: "Amount (KES)", type: "number", required: true, placeholder: "18000" },
+        { key: "dueDate", label: "Due Date", type: "date" },
+        { key: "status", label: "Status", type: "select", options: ["open", "partial", "paid", "waived"] },
+      ]}
+      secondaryAction={{ href: "/admin/charges", label: "Cancel" }}
+    />
+  );
+}

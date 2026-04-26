@@ -9,16 +9,16 @@ export class SyncConflict {
   batchId?: Types.ObjectId;
 
   @Prop({})
-  localId?: String;
+  localId?: string;
 
   @Prop({})
-  operation?: String;
+  operation?: string;
 
   @Prop({})
-  entityType?: String;
+  entityType?: string;
 
   @Prop({})
-  reason?: String;
+  reason?: string;
 
   @Prop({ type: Object })
   serverRecord?: Record<string, unknown>;
@@ -27,7 +27,7 @@ export class SyncConflict {
   clientPayload?: Record<string, unknown>;
 
   @Prop({ default: 'open' })
-  status?: String;
+  status?: string;
 
   @Prop({ type: Types.ObjectId, ref: 'User' })
   resolvedBy?: Types.ObjectId;

@@ -1,9 +1,21 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { apiClient } from "@/lib/api-client/client";
+import { authCookieNames } from "@/lib/auth/cookies";
+
+type LoginResponse = { accessToken: string; user: { role: string } };
+
+const PORTAL_REDIRECT: Record<string, string> = {
+  admin: "/admin",
+  staff: "/admin",
+  landlord: "/landlord",
+  tenant: "/tenant",
+};
 
 export function LoginForm() {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
 
@@ -13,8 +25,12 @@ export function LoginForm() {
     setMessage(null);
     const form = new FormData(event.currentTarget);
     try {
-      await apiClient.post("/auth/login", { email: form.get("email"), password: form.get("password") });
-      setMessage("Login accepted. Redirect based on role after auth wiring is complete.");
+      const res = await apiClient.post<LoginResponse>("/auth/login", { email: form.get("email"), password: form.get("password") });
+      const { accessToken, user } = res;
+      const maxAge = 60 * 60 * 24 * 7; // 7 days
+      document.cookie = `${authCookieNames.accessToken}=${accessToken}; path=/; max-age=${maxAge}; SameSite=Lax`;
+      document.cookie = `${authCookieNames.role}=${user.role}; path=/; max-age=${maxAge}; SameSite=Lax`;
+      router.push(PORTAL_REDIRECT[user.role] ?? "/admin");
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Login failed");
     } finally {

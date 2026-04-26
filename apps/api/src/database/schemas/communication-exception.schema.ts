@@ -12,10 +12,10 @@ export class CommunicationException {
   tenancyId?: Types.ObjectId;
 
   @Prop({})
-  channel?: String;
+  channel?: string;
 
   @Prop({ required: true })
-  reason!: String;
+  reason!: string;
 
   @Prop({})
   validUntil?: Date;

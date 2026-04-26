@@ -1,107 +1,17 @@
 import type { Metadata } from "next";
-        import { AdminResourcePage } from "@/components/glamandi/admin-resource-page";
-
-        export const metadata: Metadata = { title: "Featured Listings | Glamandi Control Center" };
-
-        const page = {
-  "eyebrow": "Admin / Website",
-  "title": "Featured Listings",
-  "description": "Control featured properties and units on the public homepage and property pages.",
-  "apiRoute": "/api/v1/website/featured",
-  "primaryAction": {
-    "href": "/admin/website/featured/new",
-    "label": "Create New"
-  },
-  "secondaryAction": {
-    "href": "/admin",
-    "label": "Dashboard"
-  },
-  "stats": [
-    {
-      "label": "Website",
-      "value": "Ready",
-      "helper": "API-connected scaffold"
-    },
-    {
-      "label": "Status",
-      "value": "Active",
-      "helper": "Prepared for live data"
-    },
-    {
-      "label": "Audit",
-      "value": "On",
-      "helper": "Sensitive changes logged"
-    }
-  ],
-  "panels": [
-    {
-      "title": "Website workflow",
-      "description": "Use this page to manage featured listings while keeping the Control Center tied to the API and audit trail.",
-      "items": [
-        "Server-backed data",
-        "Role-based access",
-        "Clean activity history"
-      ]
-    },
-    {
-      "title": "Source of truth",
-      "description": "Canonical business data belongs in MongoDB. Local cache is for field continuity, not creative accounting.",
-      "items": [
-        "MongoDB canonical",
-        "IndexedDB temporary",
-        "Audit logs for sensitive edits"
-      ]
-    }
-  ],
-  "table": {
-    "title": "Featured Listings list",
-    "description": "Connect this table to the corresponding API endpoint with pagination and search.",
-    "columns": [
-      "Name",
-      "Property/Owner",
-      "Status",
-      "Updated"
-    ],
-    "rows": [
-      [
-        "Sample item",
-        "Glamandi Homes",
-        "Active",
-        "Today"
-      ],
-      [
-        "Review needed",
-        "Mtwapa",
-        "Pending",
-        "Yesterday"
-      ],
-      [
-        "Archived record",
-        "System",
-        "Closed",
-        "This month"
-      ]
-    ]
-  },
-  "formTitle": "Featured Listings form",
-  "formFields": [
-    {
-      "label": "Name / Reference",
-      "placeholder": "Enter featured listings reference"
-    },
-    {
-      "label": "Status",
-      "type": "select",
-      "placeholder": "Active / Pending / Review"
-    },
-    {
-      "label": "Notes",
-      "type": "textarea",
-      "placeholder": "Add operational notes"
-    }
-  ]
-};
-
-        export default function Page() {
-          return <AdminResourcePage {...page} />;
-        }
+import { AdminListPage } from "@/components/glamandi/admin-list-page";
+export const metadata: Metadata = { title: "Featured | Website | Glamandi Control Center" };
+export default function Page() {
+  return (
+    <AdminListPage
+      eyebrow="Admin / Website / Featured" title="Website Featured"
+      description="Manage Featured content on the Glamandi public website."
+      apiPath="/website/listings"
+      columns={[
+        { key: "title", header: "Title" }, { key: "status", header: "Status" }, { key: "created_at", header: "Updated" },
+      ]}
+      primaryAction={{ href: "/admin/website", label: "Website Overview" }}
+      secondaryAction={{ href: "/admin", label: "Dashboard" }}
+    />
+  );
+}

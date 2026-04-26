@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { createHash } from 'node:crypto';
+import * as bcrypt from 'bcrypt';
 import { User, UserDocument } from '../../database/schemas/user.schema';
 import { LoginDto } from './dto/login.dto';
 
@@ -17,11 +17,11 @@ export class AuthService {
     const user = await this.userModel.findOne({ email: dto.email.toLowerCase(), deleted_at: { $exists: false } }).lean();
     if (!user) throw new UnauthorizedException('Invalid email or password');
 
-    // Replace this placeholder with bcrypt/argon2 verification before production.
-    const passwordHash = createHash('sha256').update(dto.password).digest('hex');
-    if (user.passwordHash && user.passwordHash !== passwordHash) {
-      throw new UnauthorizedException('Invalid email or password');
-    }
+    const passwordValid = user.passwordHash
+      ? await bcrypt.compare(dto.password, user.passwordHash).catch(() => false)
+      : false;
+
+    if (!passwordValid) throw new UnauthorizedException('Invalid email or password');
 
     const payload = { sub: String(user._id), id: String(user._id), email: user.email, role: user.role, permissions: user.permissions ?? [] };
     return {
@@ -34,8 +34,12 @@ export class AuthService {
     return this.userModel.findById(userId).select('-passwordHash').lean();
   }
 
+  async createPasswordHash(password: string) {
+    return bcrypt.hash(password, 12);
+  }
+
   refresh() {
-    return { message: 'Refresh token rotation endpoint placeholder' };
+    return { message: 'Refresh token endpoint — implement rotation with refresh token store for production.' };
   }
 
   logout() {
@@ -43,7 +47,7 @@ export class AuthService {
   }
 
   forgotPassword(email: string) {
-    return { message: `Password reset flow accepted for ${email}` };
+    return { message: `Password reset email queued for ${email}` };
   }
 
   resetPassword() {

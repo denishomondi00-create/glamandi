@@ -12,25 +12,25 @@ export class PaymentIntent {
   tenancyId?: Types.ObjectId;
 
   @Prop({ required: true })
-  method!: String;
+  method!: string;
 
   @Prop({})
-  provider?: String;
+  provider?: string;
 
   @Prop({ required: true, default: 0 })
-  amount!: Number;
+  amount!: number;
 
   @Prop({ default: 'KES' })
-  currency?: String;
+  currency?: string;
 
   @Prop({ required: true, unique: true })
-  reference!: String;
+  reference!: string;
 
   @Prop({})
-  externalId?: String;
+  externalId?: string;
 
   @Prop({ default: 'pending' })
-  status?: String;
+  status?: string;
 
   @Prop({ type: Object, default: {} })
   metadata?: Record<string, unknown>;

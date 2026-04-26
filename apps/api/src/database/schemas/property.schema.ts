@@ -6,10 +6,10 @@ export type PropertyDocument = HydratedDocument<Property>;
 @Schema({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 export class Property {
   @Prop({ required: true })
-  name!: String;
+  name!: string;
 
   @Prop({ required: true, unique: true })
-  slug!: String;
+  slug!: string;
 
   @Prop({ type: Types.ObjectId, ref: 'Landlord' })
   landlordId?: Types.ObjectId;
@@ -18,19 +18,19 @@ export class Property {
   location?: Record<string, unknown>;
 
   @Prop({ default: 'active' })
-  status?: String;
+  status?: string;
 
   @Prop({ default: 'draft' })
-  listingStatus?: String;
+  listingStatus?: string;
 
   @Prop({ default: 'managed' })
-  managementType?: String;
+  managementType?: string;
 
   @Prop({ type: Types.ObjectId, ref: 'CommissionRule' })
   commissionRuleId?: Types.ObjectId;
 
   @Prop({ type: [String], default: [] })
-  images?: [String];
+  images?: [string];
 
   @Prop()
   deleted_at?: Date;

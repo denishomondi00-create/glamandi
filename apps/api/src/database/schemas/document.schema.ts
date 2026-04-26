@@ -6,25 +6,25 @@ export type DocumentRecordDocument = HydratedDocument<DocumentRecord>;
 @Schema({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 export class DocumentRecord {
   @Prop({ required: true })
-  ownerType!: String;
+  ownerType!: string;
 
   @Prop({ type: Types.ObjectId })
   ownerId?: Types.ObjectId;
 
   @Prop({ required: true })
-  type!: String;
+  type!: string;
 
   @Prop({ required: true })
-  name!: String;
+  name!: string;
 
   @Prop({ required: true })
-  url!: String;
+  url!: string;
 
   @Prop({})
-  mimeType?: String;
+  mimeType?: string;
 
   @Prop({})
-  size?: Number;
+  size?: number;
 
   @Prop()
   deleted_at?: Date;

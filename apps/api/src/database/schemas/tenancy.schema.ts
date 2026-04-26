@@ -15,7 +15,7 @@ export class Tenancy {
   unitId!: Types.ObjectId;
 
   @Prop({ default: 'active' })
-  status?: String;
+  status?: string;
 
   @Prop({ required: true })
   startDate!: Date;
@@ -24,13 +24,13 @@ export class Tenancy {
   endDate?: Date;
 
   @Prop({ required: true, default: 0 })
-  rentAmount!: Number;
+  rentAmount!: number;
 
   @Prop({ default: 0 })
-  depositAmount?: Number;
+  depositAmount?: number;
 
   @Prop({ default: 5 })
-  billingDay?: Number;
+  billingDay?: number;
 
   @Prop({ type: Object, default: {} })
   propertyLocationSnapshot?: Record<string, unknown>;

@@ -12,16 +12,16 @@ export class LandlordPayout {
   statementId?: Types.ObjectId;
 
   @Prop({ required: true, default: 0 })
-  amount!: Number;
+  amount!: number;
 
   @Prop({})
-  method?: String;
+  method?: string;
 
   @Prop({})
-  reference?: String;
+  reference?: string;
 
   @Prop({ default: 'pending' })
-  status?: String;
+  status?: string;
 
   @Prop({})
   paidAt?: Date;

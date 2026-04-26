@@ -6,19 +6,19 @@ export type NotificationRecordDocument = HydratedDocument<NotificationRecord>;
 @Schema({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 export class NotificationRecord {
   @Prop({})
-  recipientType?: String;
+  recipientType?: string;
 
   @Prop({ type: Types.ObjectId })
   recipientId?: Types.ObjectId;
 
   @Prop({ required: true })
-  channel!: String;
+  channel!: string;
 
   @Prop({})
-  templateKey?: String;
+  templateKey?: string;
 
   @Prop({ default: 'pending' })
-  status?: String;
+  status?: string;
 
   @Prop({ type: Object, default: {} })
   payload?: Record<string, unknown>;

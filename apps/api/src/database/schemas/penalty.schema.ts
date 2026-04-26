@@ -15,16 +15,16 @@ export class Penalty {
   chargeId?: Types.ObjectId;
 
   @Prop({ required: true, default: 0 })
-  amount!: Number;
+  amount!: number;
 
   @Prop({})
-  band?: String;
+  band?: string;
 
   @Prop({ default: 'pending' })
-  status?: String;
+  status?: string;
 
   @Prop({})
-  reason?: String;
+  reason?: string;
 
   @Prop({ type: Types.ObjectId, ref: 'User' })
   waivedBy?: Types.ObjectId;

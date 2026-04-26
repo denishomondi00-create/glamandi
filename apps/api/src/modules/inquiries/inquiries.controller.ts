@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Public } from '../../common/decorators/public.decorator';
 import { PaginationQueryDto } from '../../common/dto/pagination-query.dto';
 import { InquiriesService } from './inquiries.service';
 import { CreateInquiryDto } from './dto/create-inquiry.dto';
@@ -13,6 +14,7 @@ export class InquiriesController {
     return this.service.findAll(query);
   }
 
+  @Public()
   @Post()
   create(@Body() dto: CreateInquiryDto) {
     return this.service.create(dto);

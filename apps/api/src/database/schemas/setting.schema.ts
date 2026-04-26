@@ -1,21 +1,21 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Types } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 
 export type SettingDocument = HydratedDocument<Setting>;
 
 @Schema({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 export class Setting {
   @Prop({ required: true, unique: true })
-  key!: String;
+  key!: string;
 
   @Prop({ type: Object, default: {} })
   value?: Record<string, unknown>;
 
   @Prop({})
-  group?: String;
+  group?: string;
 
   @Prop({})
-  description?: String;
+  description?: string;
 
   @Prop()
   deleted_at?: Date;

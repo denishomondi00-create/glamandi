@@ -1,108 +1,33 @@
 import type { Metadata } from "next";
-        import { AdminResourcePage } from "@/components/glamandi/admin-resource-page";
-
-        export const metadata: Metadata = { title: "New Payment | Glamandi Control Center" };
-
-        const page = {
-  "eyebrow": "Admin / Payments",
-  "title": "New Payment",
-  "description": "Choose payment channel and record or initialize a payment through supported methods.",
-  "apiRoute": "/api/v1/payments",
-  "primaryAction": {
-    "href": "/admin/payments/new",
-    "label": "Save Draft"
-  },
-  "secondaryAction": {
-    "href": "/admin",
-    "label": "Dashboard"
-  },
-  "stats": [
-    {
-      "label": "Payments",
-      "value": "Ready",
-      "helper": "API-connected scaffold"
-    },
-    {
-      "label": "Status",
-      "value": "Active",
-      "helper": "Prepared for live data"
-    },
-    {
-      "label": "Audit",
-      "value": "On",
-      "helper": "Sensitive changes logged"
-    }
-  ],
-  "panels": [
-    {
-      "title": "Payments workflow",
-      "description": "Use this page to manage new payment while keeping the Control Center tied to the API and audit trail.",
-      "items": [
-        "Server-backed data",
-        "Role-based access",
-        "Clean activity history"
-      ]
-    },
-    {
-      "title": "Source of truth",
-      "description": "Canonical business data belongs in MongoDB. Local cache is for field continuity, not creative accounting.",
-      "items": [
-        "MongoDB canonical",
-        "IndexedDB temporary",
-        "Audit logs for sensitive edits"
-      ]
-    }
-  ],
-  "table": {
-    "title": "New Payment list",
-    "description": "Connect this table to the corresponding API endpoint with pagination and search.",
-    "columns": [
-      "Name",
-      "Property/Owner",
-      "Status",
-      "Updated"
-    ],
-    "rows": [
-      [
-        "Sample item",
-        "Glamandi Homes",
-        "Active",
-        "Today"
-      ],
-      [
-        "Review needed",
-        "Mtwapa",
-        "Pending",
-        "Yesterday"
-      ],
-      [
-        "Archived record",
-        "System",
-        "Closed",
-        "This month"
-      ]
-    ]
-  },
-  "formTitle": "New Payment form",
-  "formFields": [
-    {
-      "label": "Name / Reference",
-      "placeholder": "Enter new payment reference"
-    },
-    {
-      "label": "Status",
-      "type": "select",
-      "placeholder": "Active / Pending / Review"
-    },
-    {
-      "label": "Notes",
-      "type": "textarea",
-      "placeholder": "Add operational notes"
-    }
-  ],
-  "offlineNote": "This module can show cached records and may allow safe draft creation. Official finance posting, receipt numbers, payouts, and verified payments must wait for online server confirmation."
-};
-
-        export default function Page() {
-          return <AdminResourcePage {...page} />;
-        }
+import Link from "next/link";
+import { Badge } from "@/components/glamandi/page-kit";
+export const metadata: Metadata = { title: "Record Payment | Glamandi Control Center" };
+const channels = [
+  { href: "/admin/payments/manual-mpesa", label: "Manual M-Pesa", description: "Record a direct M-Pesa transfer using a transaction code." },
+  { href: "/admin/payments/manual-kcb", label: "Manual KCB", description: "Record a KCB bank deposit or transfer." },
+  { href: "/admin/payments/cash", label: "Cash", description: "Record a cash payment received in office." },
+  { href: "/admin/payments/paystack", label: "Paystack Online", description: "Initialize a Paystack payment link for the tenant." },
+  { href: "/admin/payments/daraja-stk", label: "Daraja STK Push", description: "Initiate an M-Pesa STK push via Daraja API." },
+];
+export default function Page() {
+  return (
+    <div className="mx-auto max-w-3xl space-y-6">
+      <section className="relative overflow-hidden rounded-[2rem] border border-[#C5F0F8]/80 bg-white p-6 shadow-xl shadow-[#145F6B]/5 lg:p-8">
+        <div className="absolute right-0 top-0 h-56 w-56 rounded-full bg-[#17DEFE]/20 blur-3xl" />
+        <div className="relative">
+          <Badge>Admin / Payments</Badge>
+          <h1 className="mt-4 text-4xl font-black tracking-tight text-[#145F6B]">Record Payment</h1>
+          <p className="mt-3 text-base leading-7 text-slate-600">Choose a payment channel. All payments post to MongoDB and generate a receipt after server verification.</p>
+        </div>
+      </section>
+      <section className="grid gap-4 sm:grid-cols-2">
+        {channels.map(({ href, label, description }) => (
+          <Link key={href} href={href} className="rounded-[1.4rem] border border-[#C5F0F8] bg-white p-5 shadow-sm hover:border-[#17DEFE] hover:shadow-md transition">
+            <p className="font-black text-[#145F6B]">{label}</p>
+            <p className="mt-1 text-sm text-slate-500">{description}</p>
+          </Link>
+        ))}
+      </section>
+    </div>
+  );
+}

@@ -9,31 +9,31 @@ export class Unit {
   propertyId!: Types.ObjectId;
 
   @Prop({})
-  unitNumber?: String;
+  unitNumber?: string;
 
   @Prop({ required: true })
-  unitLabel!: String;
+  unitLabel!: string;
 
   @Prop({})
-  type?: String;
+  type?: string;
 
   @Prop({ default: 0 })
-  bedrooms?: Number;
+  bedrooms?: number;
 
   @Prop({ default: 0 })
-  bathrooms?: Number;
+  bathrooms?: number;
 
   @Prop({ required: true, default: 0 })
-  rentAmount!: Number;
+  rentAmount!: number;
 
   @Prop({ default: 0 })
-  depositAmount?: Number;
+  depositAmount?: number;
 
   @Prop({ default: 'vacant' })
-  status?: String;
+  status?: string;
 
   @Prop({ default: 'unlocked' })
-  lockStatus?: String;
+  lockStatus?: string;
 
   @Prop({ type: Object, default: {} })
   locationDetail?: Record<string, unknown>;

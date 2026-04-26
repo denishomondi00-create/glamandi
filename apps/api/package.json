@@ -21,6 +21,7 @@
     "@nestjs/mongoose": "latest",
     "@nestjs/platform-express": "latest",
     "@nestjs/swagger": "latest",
+    "bcrypt": "^6.0.0",
     "bullmq": "latest",
     "class-transformer": "latest",
     "class-validator": "latest",
@@ -35,6 +36,7 @@
     "@nestjs/cli": "latest",
     "@nestjs/schematics": "latest",
     "@nestjs/testing": "latest",
+    "@types/bcrypt": "^6.0.0",
     "@types/compression": "latest",
     "@types/cookie-parser": "latest",
     "@types/express": "latest",
@@ -45,7 +47,7 @@
     "supertest": "latest",
     "ts-jest": "latest",
     "ts-node": "latest",
-    "typescript": "latest"
+    "typescript": "^5.9.3"
   },
   "jest": {
     "moduleFileExtensions": [

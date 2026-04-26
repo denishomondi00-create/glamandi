@@ -1,4 +1,5 @@
 import type { INestApplicationContext } from '@nestjs/common';
+import type { Job } from 'bullmq';
 import { Worker } from 'bullmq';
 import { QUEUE_NAMES } from '../queues/queue-names';
 import { createRedisConnection } from '../queues/connection';
@@ -15,7 +16,7 @@ import { ExportGenerationService } from '../services/export-generation.service';
 import { PaymentReconciliationService } from '../services/payment-reconciliation.service';
 import { OfflineSyncCleanupService } from '../services/offline-sync-cleanup.service';
 
-type WorkerService = { handle(payload: Record<string, unknown>, job?: any): Promise<unknown> };
+type WorkerService = { handle(payload: Record<string, unknown>, job?: Job): Promise<unknown> };
 
 function makeWorker(queueName: string, service: WorkerService, concurrency: number) {
   const worker = new Worker(

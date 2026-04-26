@@ -12,19 +12,19 @@ export class Receipt {
   tenantId?: Types.ObjectId;
 
   @Prop({ required: true, unique: true })
-  receiptNumber!: String;
+  receiptNumber!: string;
 
   @Prop({ required: true, default: 0 })
-  amount!: Number;
+  amount!: number;
 
   @Prop({ default: Date.now })
   issuedAt?: Date;
 
   @Prop({})
-  pdfUrl?: String;
+  pdfUrl?: string;
 
   @Prop({ default: 'issued' })
-  status?: String;
+  status?: string;
 
   @Prop()
   deleted_at?: Date;

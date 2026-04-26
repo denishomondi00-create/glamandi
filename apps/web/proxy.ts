@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const response = NextResponse.next();
   response.headers.set("x-glamandi-app", "web");
   response.headers.set("x-content-type-options", "nosniff");

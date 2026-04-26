@@ -18,22 +18,22 @@ export class Charge {
   unitId?: Types.ObjectId;
 
   @Prop({ required: true })
-  type!: String;
+  type!: string;
 
   @Prop({})
-  period?: String;
+  period?: string;
 
   @Prop({ required: true, default: 0 })
-  amount!: Number;
+  amount!: number;
 
   @Prop({ required: true, default: 0 })
-  balance!: Number;
+  balance!: number;
 
   @Prop({})
   dueDate?: Date;
 
   @Prop({ default: 'open' })
-  status?: String;
+  status?: string;
 
   @Prop({ type: Object, default: {} })
   metadata?: Record<string, unknown>;

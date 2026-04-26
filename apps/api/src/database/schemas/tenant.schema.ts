@@ -1,27 +1,27 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Types } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 
 export type TenantDocument = HydratedDocument<Tenant>;
 
 @Schema({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 export class Tenant {
   @Prop({ required: true })
-  firstName!: String;
+  firstName!: string;
 
   @Prop({})
-  lastName?: String;
+  lastName?: string;
 
   @Prop({ required: true })
-  phone!: String;
+  phone!: string;
 
   @Prop({ lowercase: true, trim: true })
-  email?: String;
+  email?: string;
 
   @Prop({})
-  idNumber?: String;
+  idNumber?: string;
 
   @Prop({ default: 'active' })
-  status?: String;
+  status?: string;
 
   @Prop({ type: Object, default: {} })
   emergencyContact?: Record<string, unknown>;
